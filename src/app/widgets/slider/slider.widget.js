@@ -94,7 +94,8 @@
                 },
                 onEnd: function (id) {
                     vm.value = vm.slider.value;
-                    OHService.sendCmd(vm.widget.item, vm.value.toString());
+                    OHService.sendCmd(vm.widget.itemset, vm.value.toString());
+
                 }
             }
         };
