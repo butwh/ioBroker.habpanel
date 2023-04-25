@@ -73,9 +73,9 @@
 
         vm.toggleSwitch = function () {
             if (vm.value === true) {
-                OHService.sendCmd(this.widget.item, false);
+                OHService.sendCmd(this.widget.itemset, false);
             } else {
-                OHService.sendCmd(this.widget.item, true);
+                OHService.sendCmd(this.widget.itemset, true);
             }
         };
 
@@ -106,7 +106,8 @@
             backdrop_center : widget.backdrop_center,
             iconset         : widget.iconset,
             icon            : widget.icon,
-            icon_size       : widget.icon_size
+            icon_size       : widget.icon_size,
+            itemset         : widget.itemset
         };
         
         $scope.$watch('form.item', function (item, oldItem) {
