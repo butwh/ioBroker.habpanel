@@ -124,7 +124,7 @@
                 onEnd: function (val) {
                     if (vm.value !== val) {
                         vm.value = val;
-                        OHService.sendCmd(vm.widget.item, vm.value.toString());
+                        OHService.sendCmd(vm.widget.itemset, vm.value.toString());
                     }
                 },
                 rangesEnabled: (angular.isDefined(vm.widget.rangesEnabled)) ? vm.widget.rangesEnabled : false,
