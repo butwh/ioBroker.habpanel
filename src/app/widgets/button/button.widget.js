@@ -148,13 +148,13 @@
 
                 case "toggle":
                     if (vm.state === vm.widget.command) {
-                        OHService.sendCmd(this.widget.item, this.widget.command_alt);
+                        OHService.sendCmd(this.widget.itemset this.widget.command_alt);
                     } else {
-                        OHService.sendCmd(this.widget.item, this.widget.command);
+                        OHService.sendCmd(this.widget.itemset, this.widget.command);
                     }
                     break;
                 default:
-                    OHService.sendCmd(this.widget.item, this.widget.command);
+                    OHService.sendCmd(this.widget.itemset, this.widget.command);
                     break;
             }
         };
@@ -176,6 +176,7 @@
             col: widget.col,
             row: widget.row,
             item: widget.item,
+            itemset: widget.itemset,
             action_type: widget.action_type,
             command: widget.command,
             command_alt: widget.command_alt,

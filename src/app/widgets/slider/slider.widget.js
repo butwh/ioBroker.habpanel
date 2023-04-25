@@ -144,7 +144,8 @@
             bigslider: widget.bigslider,
             backdrop_iconset: widget.backdrop_iconset,
             backdrop_icon: widget.backdrop_icon,
-            backdrop_center: widget.backdrop_center
+            backdrop_center: widget.backdrop_center,
+            itemset: widget.itemset
         };
         
         $scope.$watch('form.item', function (item, oldItem) {

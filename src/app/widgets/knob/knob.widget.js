@@ -197,6 +197,7 @@
             col: widget.col,
             row: widget.row,
             item: widget.item,
+            itemset: widget.itemset,
             floor: widget.floor || 0,
             ceil: widget.ceil || 100,
             step: widget.step || 1,
