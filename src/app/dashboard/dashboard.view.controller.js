@@ -10,6 +10,13 @@
     vm.refreshTooltip = TranslationService.translate('dashboard.toolbar.refresh', 'Refresh');
     vm.fullscreenTooltip = TranslationService.translate('dashboard.toolbar.fullscreen', 'Fullscreen');
     
+    // Auto-return to "Dash" dashboard after 5 minutes of inactivity
+    var autoReturnTimer = null;
+    var AUTO_RETURN_DELAY = 5 * 60 * 1000; // 5 minutes in milliseconds
+    var TARGET_DASHBOARD = 'Dash'; // Name des Ziel-Dashboards
+    
+    console.log('HABPanel Auto-Return: Aktuelles Dashboard:', dashboard.id);
+    
     vm.gridsterOptions = {
         margins: (vm.dashboard.widget_margin) ?
                     [vm.dashboard.widget_margin, vm.dashboard.widget_margin] : [5, 5],
@@ -33,6 +40,13 @@
     $scope.$on('$destroy', function() {
         fullscreenhandler();
         resizehandler();
+        // Clean up auto-return timer
+        if (autoReturnTimer) {
+            $timeout.cancel(autoReturnTimer);
+            autoReturnTimer = null;
+        }
+        // Remove event listeners
+        angular.element(document).off('click touchstart', resetAutoReturnTimer);
     });
 
     OHService.onUpdate($scope, '', function () {
@@ -58,6 +72,40 @@
             snapRemote.getSnapper().then(function (snapper) {
                 snapper.disable();
             })
+        }
+        
+        // Start auto-return timer if not on the target dashboard
+        startAutoReturnTimer();
+        
+        // Reset timer on user interactions
+        angular.element(document).on('click touchstart', resetAutoReturnTimer);
+    }
+    
+    function startAutoReturnTimer() {
+        // Only start timer if we're NOT on the target dashboard
+        if (dashboard.id !== TARGET_DASHBOARD) {
+            console.log('HABPanel Auto-Return: Timer gestartet für', AUTO_RETURN_DELAY / 1000, 'Sekunden');
+            autoReturnTimer = $timeout(function() {
+                console.log('HABPanel Auto-Return: Zeit abgelaufen! Wechsle zu', TARGET_DASHBOARD);
+                // Navigate to target dashboard (fullscreen stays active if already enabled)
+                $location.url('/view/' + TARGET_DASHBOARD);
+            }, AUTO_RETURN_DELAY);
+        } else {
+            console.log('HABPanel Auto-Return: Bin bereits auf Ziel-Dashboard, kein Timer');
+        }
+    }
+    
+    function resetAutoReturnTimer() {
+        console.log('HABPanel Auto-Return: Benutzeraktivität erkannt, Timer zurücksetzen');
+        // Cancel existing timer
+        if (autoReturnTimer) {
+            $timeout.cancel(autoReturnTimer);
+            autoReturnTimer = null;
+        }
+        
+        // Restart timer if not on target dashboard
+        if (dashboard.id !== TARGET_DASHBOARD) {
+            startAutoReturnTimer();
         }
     }
 
