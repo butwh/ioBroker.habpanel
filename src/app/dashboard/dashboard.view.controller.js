@@ -91,7 +91,7 @@
                 if (Element.prototype.webkitRequestFullscreen) {
                     Element.prototype.webkitRequestFullscreen = function () { this.requestFullscreen(); }
                 }
-                Fullscreen.toggleAll();
+                Fullscreen.all();
             }
         }, 1000);
         
@@ -122,7 +122,7 @@
                         if (Element.prototype.webkitRequestFullscreen) {
                             Element.prototype.webkitRequestFullscreen = function () { this.requestFullscreen(); }
                         }
-                        Fullscreen.toggleAll();
+                        Fullscreen.all();
                     }
                 }, 1000);
             }, AUTO_RETURN_DELAY);
@@ -155,7 +155,7 @@
                 if (Element.prototype.webkitRequestFullscreen) {
                     Element.prototype.webkitRequestFullscreen = function () { this.requestFullscreen(); }
                 }
-                Fullscreen.toggleAll();
+                Fullscreen.all();
             }
             
             // Schedule next fullscreen check
