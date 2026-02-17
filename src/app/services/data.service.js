@@ -255,7 +255,10 @@
                         connectPromise.resolve();
                     },
                     onRefresh: function () {
-                        window.location.reload();
+                        console.log('Backend refresh requested - reloading HABPanel data without page reload');
+                        $rootScope.objects = null;
+                        loadItems();
+                        getLocale();
                     },
                     onUpdate: function (id, state) {
                         setTimeout(function () {
